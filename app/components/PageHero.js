@@ -1,2 +1,0 @@
-import Link from 'next/link'
-export default function PageHero({label,title,description,image='/img/c1.png'}) {return <section className="page-hero"><div className="page-hero-photo" style={{backgroundImage:`url(${image})`}}/><div className="section-shell page-hero-content"><div className="breadcrumbs"><Link href="/">Home</Link><span>/</span><span>{label}</span></div><p className="eyebrow">{label}</p><h1>{title}</h1><p className="hero-description">{description}</p></div><span className="hero-watermark" aria-hidden="true">KMAX</span></section>}

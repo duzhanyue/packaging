@@ -1,7 +1,0 @@
-'use client'
-import Image from 'next/image'
-import Link from 'next/link'
-import {usePathname} from 'next/navigation'
-import {useState} from 'react'
-const links=[['/','Home'],['/products','Products'],['/about','About Kmax'],['/certificates','Quality & Certificates'],['/tracking','Tracking'],['/news','Insights'],['/faq','FAQ']]
-export default function Navbar(){const path=usePathname();const[open,setOpen]=useState(false);return <header className="site-header"><div className="utility-bar"><div className="section-shell"><span>Peptide science. Factory-direct partnerships. Worldwide inquiries.</span><a href="mailto:18931142995@163.com">18931142995@163.com <span>↗</span></a></div></div><div className="section-shell navigation"><Link href="/" className="brand" onClick={()=>setOpen(false)}><Image src="/img/kmax-logo.svg" alt="Kmax" width={46} height={46} priority/><span><strong>KMAX<span> PEPTIDE</span></strong><small>SCIENCE. SUPPLY. POSSIBILITY.</small></span></Link><nav className={open?'nav-links is-open':'nav-links'} aria-label="Main navigation">{links.map(([url,label])=><Link href={url} key={url} aria-current={(url==='/'?path===url:path.startsWith(url))?'page':undefined} onClick={()=>setOpen(false)}>{label}</Link>)}<a href="https://wa.me/8618931142995" className="nav-quote" onClick={() => setOpen(false)} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></nav><button className="menu-toggle" aria-label="Toggle navigation" aria-expanded={open} onClick={()=>setOpen(!open)}>{open?'✕':'☰'}</button></div></header>}

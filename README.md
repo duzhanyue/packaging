@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# JIETING Packaging
 
-## Getting Started
+A responsive packaging brand website built with Next.js 16 and React 19.
 
-First, run the development server:
+## Run locally
 
-```bash
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. For production checks run `npm run build`, then `npm start`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Content
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `app/data.ts`: product names, categories, images and descriptions.
+- `app/globals.css`: visual system and mobile layouts.
+- `app/ui.tsx`: navigation, product filters and inquiry form.
+- `public/images`: product photography downloaded from jietingpackage.com.
 
-## Learn More
+The inquiry form prepares an email draft for angel@jietingpackage.com; it does not send email or store submissions. Visitors review and send the draft in their own email client. Phone and WhatsApp use the contact number listed on the original website.
 
-To learn more about Next.js, take a look at the following resources:
+The original application code is preserved in `.reference/original-code-backup.zip`. Old unrelated assets and routes have been removed. The original HTML snapshots are in `.reference` for source verification. No deployment or domain changes have been made.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Complete source catalogue
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The product library mirrors all 11 categories and 141 products from the source website, including pagination. Product names and category names are preserved. Image assets are stored locally as WebP. Product detail pages provide an image gallery and available source specifications.
 
-## Deploy on Vercel
+- `app/catalog.json`: imported product catalogue and source URLs.
+- `scripts/import-catalog.mjs`: repeatable source importer, with cached pages and local image conversion.
+- `scripts/verify-catalog.mjs`: validates category totals, product identity and local image files against the import report.
+- `.reference/catalog/report.json`: import totals and any unavailable source files.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Run the importer with `node scripts/import-catalog.mjs` (requires network access), then run `node scripts/verify-catalog.mjs` and `npm run build`.

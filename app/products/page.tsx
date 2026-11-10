@@ -1,0 +1,8 @@
+import { ProductExplorer, ProjectCTA } from '../ui';
+import { categoryDetails, categories, products } from '../data';
+export const metadata = { title: 'Packaging Products — Bottles, Jars & Tubes', description: 'Explore the complete Jieting packaging collection. Browse glass jars, essential oil bottles, airless packaging, bamboo bottles, tubes and more.' };
+export default async function Products({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const { category } = await searchParams;
+  const initialCategory = category && categories.includes(category) ? category : 'All packaging';
+  return <main id="top"><section className="catalog-hero"><div className="shell catalog-hero-inner"><div><div className="catalog-breadcrumb"><a href="/">Home</a><span>/</span><span>Products</span></div><p className="eyebrow">THE JIETING PRODUCT LIBRARY</p><h1>A world of shapes.<br /><em>A place for your idea.</em></h1><p>Bottles, jars and the details in between.<br />Find the perfect beginning for your next collection.</p><div className="catalog-hero-meta"><span>{products.length}<small>PRODUCTS TO EXPLORE</small></span><i>✳</i><span>{categoryDetails.length}<small>PACKAGING CATEGORIES</small></span></div></div><div className="catalog-hero-art"><img src="/images/bamboo-collection.png" alt="Jieting glass bottles and cosmetic jars with bamboo closures"/><span className="catalog-art-caption">CONSIDERED IN EVERY DETAIL. ↗</span></div></div></section><section className="shell section catalog-section"><ProductExplorer key={initialCategory} initialCategory={initialCategory} /></section><ProjectCTA /></main>;
+}
