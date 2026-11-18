@@ -1,9 +1,11 @@
+import { contactDetails } from './contact-details';
+
 export default function FloatingContact() {
   return (
     <nav className="floating-contact" aria-label="Quick contact">
       <a
         className="floating-contact-link whatsapp"
-        href="https://wa.me/8619930715424"
+        href={contactDetails.whatsappHref}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with XIECHU on WhatsApp (opens in a new tab)"
@@ -15,14 +17,14 @@ export default function FloatingContact() {
       </a>
       <a
         className="floating-contact-link email"
-        href="mailto:angel@jietingpackage.com"
-        aria-label="Email XIECHU at angel@jietingpackage.com"
+        href={contactDetails.emailHref}
+        aria-label={"Email XIECHU at " + contactDetails.emails.join(" or ")}
       >
         <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
           <rect x="3" y="5" width="18" height="14" rx="2" />
           <path d="m4 7 8 6 8-6" />
         </svg>
-        <span className="floating-contact-label">Email us <span>angel@jietingpackage.com ↗</span></span>
+        <span className="floating-contact-label">Email us {contactDetails.emails.map(email => <span key={email}>{email} ↗</span>)}</span>
       </a>
     </nav>
   );

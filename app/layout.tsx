@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import './reference.css';
 import './process.css';
+import './brand.css';
+import './social.css';
 import { Header, Footer } from './ui';
 import FloatingContact from './FloatingContact';
 

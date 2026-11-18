@@ -1,0 +1,4 @@
+.logo .brand-mark{width:49px;height:32px;object-fit:contain;flex-shrink:0;margin-right:9px}
+.logo small{left:58px}
+@media(max-width:1000px){.logo .brand-mark{width:40px;height:26px}.logo small{left:49px}}
+@media(max-width:760px){.logo .brand-mark{width:43px;height:28px}.logo small{left:52px}}
