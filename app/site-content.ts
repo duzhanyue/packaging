@@ -1,9 +1,17 @@
 export const workflow = [
-  ['01', 'Requirements & specification', 'Tell us about your formulation, material, capacity, closure, decoration, quantity and delivery destination. We review the suitable packaging route.'],
-  ['02', 'Product & design proposal', 'Compare standard formats or review an OEM/ODM brief. Align drawings, components, artwork, process options and the quotation scope.'],
-  ['03', 'Sampling & approval', 'Review physical and decorated samples. Confirm dimensions, component fit, appearance and your formula and filling evaluations before approval.'],
-  ['04', 'Production & quality review', 'Coordinate forming or molding, surface treatment, printing and assembly against the approved specification and agreed inspection criteria.'],
-  ['05', 'Protective packing & delivery', 'Confirm inner protection, carton configuration, shipping marks and dispatch arrangements for the agreed destination.'],
+  { number: '01', title: 'Idea', description: 'Brand customers tell us their idea or show us any photo about what they want to make.', image: 'idea', alt: 'Packaging inspiration with a clear storage jar' },
+  { number: '02', title: '2D Drawing', description: 'Brand customers tell us their idea or show us any photo about what they want to make.', image: '2d-drawing', alt: 'Designer developing a two-dimensional packaging drawing' },
+  { number: '03', title: '3D', description: 'Then we will make a 3D drawing.', image: '3d-design', alt: 'Three-dimensional CAD model of a jar and closure' },
+  { number: '04', title: 'Prototype', description: 'Confirm the structure and the function.', image: 'prototype', alt: 'Clear jar prototype for structure and function confirmation' },
+  { number: '05', title: 'Mold', description: 'Open a mold as requested by the customer.', image: 'mold', alt: 'Packaging mold and manufacturing equipment' },
+  { number: '06', title: 'Sample', description: 'Finally, we will send the sample to brand customers.', image: 'sample', alt: 'Decorated jar samples in a range of colors and finishes' },
+];
+
+export const sellerPartners = [
+  { title: 'Online Seller', audience: 'Amazon, Shopify DTC Brands, Gym & Fitness Clubs', benefits: ['Low MOQ', 'More SKUs', 'High-quality videos and photos'] },
+  { title: 'Wholesaler', benefits: ['Stable quality', 'Popular styles', '100% quality assurance & worry-free after-sales', 'Brand authorization'] },
+  { title: 'Brand Customer', benefits: ['Dual brand strategy', 'Professional quality control system', 'ODM capability'] },
+  { title: 'Factory or Store', benefits: ['Stock availability', 'High quality', 'Low MOQ', 'Flexible shipment and storage'] },
 ];
 
 export const customOptions = [

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { products, categoryDetails } from './data';
 import { Arrow } from './ui';
-import { guides, workflow } from './site-content';
+import { guides, workflow, sellerPartners } from './site-content';
 
 export function SectionHeading({ label, title, description, href, link = 'Explore more', center = false }: { label: string; title: string; description?: string; href?: string; link?: string; center?: boolean }) {
   return <div className={'ref-heading' + (center ? ' centered' : '')}><div><p className="ref-kicker">{label}</p><h2>{title}</h2></div>{description && <p>{description}</p>}{href && <Link href={href} className="ref-text-link">{link} <Arrow diagonal={false} /></Link>}</div>;
@@ -25,7 +25,7 @@ export function CompanyOverview() {
 }
 
 export function Workflow() {
-  return <div className="ref-workflow">{workflow.map(([n, title, description]) => <div className="ref-step" key={n}><span className="ref-step-number">{n}</span><h3>{title}</h3><p>{description}</p></div>)}</div>;
+  return <div className="partner-process"><SectionHeading label="LET’S WORK TOGETHER" title="Seamless order process from concept to delivery." center /><div className="partner-process-layout"><div className="partner-intro"><span className="partner-label">PARTNERSHIP WITH XIECHU</span><h3>If you are a seller?</h3><p>We are always looking for retail partners interested in selling our products at their locations. From hand-painting to rendering, 3D models and refining the structure, and finally turning the model into a finished product, XIECHU has extensive OEM &amp; ODM project experience to help our customers turn ideas into reality. We are excited about your interest in partnering with us!</p><div className="partner-benefits">{sellerPartners.map(partner => <article key={partner.title}><h4>{partner.title}</h4>{partner.audience && <p>{partner.audience}</p>}<ul>{partner.benefits.map(benefit => <li key={benefit}>{benefit}</li>)}</ul></article>)}</div></div><ol className="packaging-development">{workflow.map(step => <li key={step.number}><div className="development-photo"><img src={'/images/process/' + step.image + '.webp'} alt={step.alt} loading="lazy" /><span>{step.number}</span></div><div className="development-copy"><h3>{step.title}</h3><p>{step.description}</p></div></li>)}</ol></div></div>;
 }
 
 export function GuideCards() {
