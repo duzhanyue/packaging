@@ -66,8 +66,8 @@ export async function GET(request: Request) {
     return Response.json({
       start: start.toISOString().slice(0, 10), end: end.toISOString().slice(0, 10),
       totals: {
-        pageViews: dailyRows.reduce<number>((sum, row) => sum + row.pageViews, 0),
-        clicks: dailyRows.reduce<number>((sum, row) => sum + row.clicks, 0),
+        pageViews: dailyRows.reduce((sum: number, row) => sum + row.pageViews, 0),
+        clicks: dailyRows.reduce((sum: number, row) => sum + row.clicks, 0),
         visitors: new Set(visitorRows.map(row => row.visitorHash)).size,
         uniqueIps: allIps.size,
         inquiries: inquiryCount,
