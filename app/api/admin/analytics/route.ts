@@ -1,6 +1,11 @@
 import { prisma } from '../../../lib/db';
 import { isAdmin } from '../../../lib/auth';
 
+type DailyStatRow = { day: Date; path: string; pageViews: number; clicks: number };
+type VisitorDayRow = { day: Date; visitorHash: string; ipHash: string | null };
+type TrafficDayRow = { source: string; visits: number };
+type ClickStatRow = { path: string; target: string; clicks: number };
+
 function shanghaiDateString(date: Date) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
 }
@@ -31,10 +36,10 @@ export async function GET(request: Request) {
     const inquiryStart = new Date(`${start.toISOString().slice(0, 10)}T00:00:00+08:00`);
     const inquiryEnd = new Date(`${endExclusive.toISOString().slice(0, 10)}T00:00:00+08:00`);
     const [dailyRows, visitorRows, trafficRows, clickRows, inquiryCount] = await Promise.all([
-      prisma.siteDailyStat.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { day: true, path: true, pageViews: true, clicks: true } }),
-      prisma.siteVisitorDay.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { day: true, visitorHash: true, ipHash: true } }),
-      prisma.siteTrafficDay.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { source: true, visits: true } }),
-      prisma.siteClickStat.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { path: true, target: true, clicks: true } }),
+      prisma.siteDailyStat.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { day: true, path: true, pageViews: true, clicks: true } }) as Promise<DailyStatRow[]>,
+      prisma.siteVisitorDay.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { day: true, visitorHash: true, ipHash: true } }) as Promise<VisitorDayRow[]>,
+      prisma.siteTrafficDay.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { source: true, visits: true } }) as Promise<TrafficDayRow[]>,
+      prisma.siteClickStat.findMany({ where: { day: { gte: start, lt: endExclusive } }, select: { path: true, target: true, clicks: true } }) as Promise<ClickStatRow[]>,
       prisma.inquiry.count({ where: { createdAt: { gte: inquiryStart, lt: inquiryEnd } } }),
     ]);
 
