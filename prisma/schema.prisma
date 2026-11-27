@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// 产品表
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String?
+  spec        String?
+  imageUrl    String?
+  imageUrls   String[] @default([])
+  isPublished Boolean  @default(true)
+  category    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  position  Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+// 管理员表
+model Admin {
+  id           String @id @default(cuid())
+  username     String @unique
+  passwordHash String
+}
+
+// 客户留言表
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  phone     String?
+  product   String?
+  quantity  String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteDailyStat {
+  id        String   @id @default(cuid())
+  day       DateTime @db.Date
+  path      String
+  pageViews Int      @default(0)
+  clicks    Int      @default(0)
+
+  @@unique([day, path])
+  @@index([day])
+}
+
+model SiteVisitorDay {
+  id          String   @id @default(cuid())
+  day         DateTime @db.Date
+  visitorHash String
+  ipHash      String?
+
+  @@unique([day, visitorHash])
+  @@index([day])
+}
+
+model SiteTrafficDay {
+  id      String   @id @default(cuid())
+  day     DateTime @db.Date
+  source  String
+  visits  Int      @default(0)
+
+  @@unique([day, source])
+  @@index([day])
+}
+
+model SiteClickStat {
+  id      String   @id @default(cuid())
+  day     DateTime @db.Date
+  path    String
+  target  String
+  clicks  Int      @default(0)
+
+  @@unique([day, path, target])
+  @@index([day])
+}

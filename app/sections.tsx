@@ -8,20 +8,22 @@ export function SectionHeading({ label, title, description, href, link = 'Explor
 }
 
 const categoryImages: Record<string, string> = { 'Glass Jar': 'gold-cream-jars', 'Essential Oil Bottle': 'square-dropper', 'Airless Bottle & Jar': 'jt-288', 'Foam Bottle': 'foam-bottle', 'Bamboo Bottle & Jar': 'bamboo-collection', 'Aluminum Jar': 'jt-252', 'Plastic Tube': 'cosmetic-tubes', 'Perfume bottles': 'jt-189' };
-export function CategoryGrid() {
-  return <div className="ref-category-grid">{categoryDetails.map(category => {
-    const imageProduct = products.find(p => p.slug === categoryImages[category.name]) || products.find(p => p.categories.includes(category.name));
-    const count = products.filter(p => p.categories.includes(category.name)).length;
-    return <Link href={'/products?category=' + encodeURIComponent(category.name)} className="ref-category" key={category.id}><div className="ref-category-photo">{imageProduct && <img src={'/images/' + imageProduct.image} alt={category.name + ' packaging'} loading="lazy" />}</div><div><span>{String(count).padStart(2, '0')} designs</span><h3>{category.name}</h3><span className="category-go" aria-hidden="true">↗</span></div></Link>;
-  })}<Link className="ref-category ref-category-all" href="/products"><span className="ref-kicker">THE COMPLETE COLLECTION</span><strong>Find your<br />next packaging.</strong><span>{products.length} designs. {categoryDetails.length} categories.</span><span className="ref-text-link">View all products <Arrow diagonal={false} /></span></Link></div>;
+export function CategoryGrid({ categoryNames = categoryDetails.map(category => category.name), items = products }: { categoryNames?: string[]; items?: typeof products }) {
+  return <div className="ref-category-grid">{categoryNames.map(categoryName => {
+    const category = { name: categoryName };
+    const imageProduct = items.find(p => p.slug === categoryImages[category.name]) || items.find(p => p.categories.includes(category.name));
+    const count = items.filter(p => p.categories.includes(category.name)).length;
+    const imageSrc = imageProduct?.image.startsWith('http') || imageProduct?.image.startsWith('/') ? imageProduct.image : imageProduct ? '/images/' + imageProduct.image : '';
+    return <Link href={'/products?category=' + encodeURIComponent(category.name)} className="ref-category" key={category.name}><div className="ref-category-photo">{imageProduct && <img src={imageSrc} alt={category.name + ' packaging'} loading="lazy" />}</div><div><span>{String(count).padStart(2, '0')} designs</span><h3>{category.name}</h3><span className="category-go" aria-hidden="true">↗</span></div></Link>;
+  })}<Link className="ref-category ref-category-all" href="/products"><span className="ref-kicker">THE COMPLETE COLLECTION</span><strong>Find your<br />next packaging.</strong><span>{items.length} designs. {categoryNames.length} categories.</span><span className="ref-text-link">View all products <Arrow diagonal={false} /></span></Link></div>;
 }
 
 export function CompanyVideo() {
   return <figure className="ref-video" id="company-video"><video controls playsInline preload="metadata" aria-label="XIECHU packaging company video"><source src="/videos/xiechu-packaging.mp4" type="video/mp4" />Your browser does not support this video. <a href="/videos/xiechu-packaging.mp4">Open the company video</a>.</video><figcaption><span className="video-dot" /> XIECHU PACKAGING <span>COMPANY VIDEO</span></figcaption></figure>;
 }
 
-export function CompanyOverview() {
-  return <div className="ref-about-grid"><CompanyVideo /><div className="ref-about-copy"><p className="ref-kicker">ABOUT XIECHU</p><h2>Packaging expertise.<br />From selection to supply.</h2><p>Glass bottles, cosmetic jars, airless formats, plastic containers, aluminum jars and tubes — brought together for beauty and personal care brands.</p><p>We connect application-led product selection with custom decoration, sample review and production coordination. Your formulation, filling requirements and brand identity guide the specification.</p><Link className="ref-text-link" href="/about">Meet your packaging partner <Arrow diagonal={false} /></Link><div className="ref-stats"><div><strong>{products.length}</strong><span>Product designs</span></div><div><strong>{categoryDetails.length}</strong><span>Packaging categories</span></div><div><strong>OEM/ODM</strong><span>Project support</span></div></div></div></div>;
+export function CompanyOverview({ productCount = products.length, categoryCount = categoryDetails.length }: { productCount?: number; categoryCount?: number } = {}) {
+  return <div className="ref-about-grid"><CompanyVideo /><div className="ref-about-copy"><p className="ref-kicker">ABOUT XIECHU</p><h2>Packaging expertise.<br />From selection to supply.</h2><p>Glass bottles, cosmetic jars, airless formats, plastic containers, aluminum jars and tubes — brought together for beauty and personal care brands.</p><p>We connect application-led product selection with custom decoration, sample review and production coordination. Your formulation, filling requirements and brand identity guide the specification.</p><Link className="ref-text-link" href="/about">Meet your packaging partner <Arrow diagonal={false} /></Link><div className="ref-stats"><div><strong>{productCount}</strong><span>Product designs</span></div><div><strong>{categoryCount}</strong><span>Packaging categories</span></div><div><strong>OEM/ODM</strong><span>Project support</span></div></div></div></div>;
 }
 
 export function Workflow() {

@@ -4,8 +4,8 @@ import './reference.css';
 import './process.css';
 import './brand.css';
 import './social.css';
-import { Header, Footer } from './ui';
-import FloatingContact from './FloatingContact';
+import SiteFrame from './SiteFrame';
+import { getLiveCategoryNames } from './lib/catalog';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.jietingpackage.com'),
@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: 'Glass bottles, cosmetic jars, airless packaging and tubes for beauty and personal care. Standard formats, OEM/ODM support and custom decoration.',
   openGraph: { title: 'XIECHU Packaging', description: 'Cosmetic packaging, custom decoration and OEM/ODM project support.', images: ['/images/hero-premium-v2.webp'] },
 };
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return <html lang="en" data-scroll-behavior="smooth"><body><Header />{children}<Footer /><FloatingContact /></body></html>;
+export const dynamic = 'force-dynamic';
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const categoryNames = await getLiveCategoryNames();
+  return <html lang="en" data-scroll-behavior="smooth"><body><SiteFrame categoryNames={categoryNames}>{children}</SiteFrame></body></html>;
 }

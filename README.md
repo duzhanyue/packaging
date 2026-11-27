@@ -31,3 +31,16 @@ The product library mirrors all 11 categories and 141 products from the source w
 - `.reference/catalog/report.json`: import totals and any unavailable source files.
 
 Run the importer with `node scripts/import-catalog.mjs` (requires network access), then run `node scripts/verify-catalog.mjs` and `npm run build`.
+# Admin and product media
+
+The private admin workspace is available at `/admin`. It stores website inquiries and product image lists in Vercel Postgres and uploads new images to Vercel Blob. Product photos are public website assets, so connect a **Public** Blob store; a Private Blob store cannot be switched to public after creation.
+
+Configure these environment variables in the local `.env.local` file and in the Vercel project before deploying:
+
+- `POSTGRES_PRISMA_URL` (or `DATABASE_URL`)
+- `BLOB_READ_WRITE_TOKEN`
+- `ADMIN_USERNAME`
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET` (random value, at least 32 characters)
+
+Apply schema updates with `npx prisma migrate deploy`. The dashboard imports the existing product catalog the first time an authenticated admin opens Product imagery. Public contact forms save directly to the Inquiry table.
